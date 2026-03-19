@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitantes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link rel="icon" href="{{url_for('static', filename='img/icon.png')}}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+
+<body class="bg-light fondo-vistas">
+
+
+    <div class="layout">
+
+
+        <div class="left">
+            <a href="{{ url_for('index') }}" class="btn btn-primary btn-inicio d-flex align-items-center gap-2 shadow">
+                <i class="bi bi-arrow-left"></i>
+                <span class="btn-inicio-text">Inicio</span>
+            </a>
+        </div>
+
+
+
+        <div class="center">
+
+            <div class="form-container-visitantes top-space">
+
+                <div class="card shadow-lg" data-aos="fade-up">
+
+                    <div class="d-flex justify-content-center align-items-center my-4">
+
+                        <div>
+                            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo OCW Kiosko"
+                                class="img-fluid" style="max-height: 50px;">
+                        </div>
+
+
+                        <div class="position-absolute top-0 end-0 m-3">
+                            <button id="language-toggle" class="btn btn-outline-visitante btn-sm">
+                                <i class="bi bi-translate"></i>
+                                <span id="language-text" style=" font-family: 'Raleway', sans-serif; ">EN</span>
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <div class="card-header bg-option text-white text-center ">
+                        <h4 id="titulo-formulario" style=" font-family: 'Raleway', sans-serif; " class="mt-2">Registro
+                            de Visitantes
+                        </h4>
+                    </div>
+
+
+                    <div class="card-body">
+                        <form action="/agregar_formulario" id="visitanteForm" method="post">
+                            <div class="row">
+                                <!-- Columna izquierda -->
+                                <div class="col-md-6">
+                                    <div class="mb-3" data-aos="fade-right" style="display: none;">
+                                        <label for="fecha" class="form-label"
+                                            style=" font-family: 'Raleway', sans-serif; " id="label-fecha">Fecha</label>
+                                        <input type="date" class="form-control" id="fecha" name="fecha" required
+                                            readonly>
+                                    </div>
+
+                                    <div class="mb-3" data-aos="fade-left">
+                                        <label for="nombre" class="form-label"
+                                            style=" font-family: 'Raleway', sans-serif; " id="label-nombre">Tu
+                                            nombre</label>
+                                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                                    </div>
+
+                                    <div class="mb-3" data-aos="fade-left">
+                                        <label for="apePaterno" class="form-label"
+                                            style=" font-family: 'Raleway', sans-serif; "
+                                            id="label-apePaterno">Apellidos</label>
+                                        <input type="text" class="form-control" id="apePaterno" name="apePaterno"
+                                            required>
+
+                                    </div>
+
+
+
+                                    <div class="mb-3" data-aos="fade-left">
+                                        <label for="visitado" class="form-label"
+                                            style=" font-family: 'Raleway', sans-serif; " id="label-visitado">Persona
+                                            y/o Empresa a
+                                            quién visita</label>
+                                        <input type="text" class="form-control" id="visitado" name="visitado" required>
+
+                                    </div>
+
+                                    <div class="col-md-6" data-aos="fade-right">
+                                        <label for="oficina" class="form-label"
+                                            style=" font-family: 'Raleway', sans-serif; " id="label-oficina">Número de
+                                            oficina</label>
+                                        <input type="text" class="form-control" id="oficina" name="oficina" required>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="oficina" class="form-label"
+                                            style="font-family: 'Raleway', sans-serif;" id="label-oficina">
+                                            N° Gafete
+                                        </label>
+                                        <input type="number" class="form-control" id="numGafe" name="numGafe" required>
+                                    </div>
+
+
+
+
+                                </div>
+
+                                <!-- Columna derecha -->
+                                <div class="col-md-6" data-aos="fade-left">
+
+
+
+
+
+
+                                    <div class="mb-3" data-aos="fade-left" style="display: none;">
+                                        <label for="horaEntrada" class="form-label"
+                                            style=" font-family: 'Raleway', sans-serif; ">Hora de entrada</label>
+                                        <input type="text" class="form-control" id="horaEntrada" name="horaEntrada"
+                                            required readonly>
+                                    </div>
+
+                                    <div class="container text-center" data-aos="fade-left">
+                                        <div class="row">
+
+                                            <label class="form-label" id="label-foto">Foto del visitante</label>
+
+                                            <div class="d-grid gap-2 col-8 mx-auto">
+                                                <button type="button" class="btn btn-secondary" id="abrirCamara">
+                                                    <i class="bi bi-camera"></i> Tomar foto
+                                                </button>
+                                            </div>
+                                            <input type="hidden" name="fotoTomada" id="fotoTomada" value="">
+                                            <input type="hidden" name="ruta_foto" id="ruta_foto" value="">
+                                            <div id="previewFoto"></div>
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-column align-items-center mt-4">
+
+                                        <label class="form-label fw-bold"
+                                            style="font-family: 'Raleway', sans-serif; color: red;">
+                                            *Revisa que tus datos sean correctos antes de continuar*
+                                        </label>
+
+                                        <div id="alertaFoto" class="alert alert-danger d-none text-center" role="alert">
+                                            <i class="bi bi-exclamation-triangle-fill"></i>
+                                            <span id="mensajeAlertaFoto"></span>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-success mt-3 w-75"
+                                            style="font-family: 'Raleway', sans-serif;" id="btn-registrar">
+                                            Registrar
+                                        </button>
+
+                                        <div class="form-check mt-3 text-center">
+                                            <input class="form-check-input" type="checkbox" id="checkPrivacidad">
+                                            <label class="form-check-label" for="checkPrivacidad" id="label-privacidad">
+                                                He leído y acepto el <a class="link-opacity-100-hover" href="{{ url_for('priv') }}"> Aviso
+                                                    de privacidad </a>
+                                            </label>
+                                        </div>
+
+                                    </div>
+
+
+
+
+
+                                </div>
+                            </div>
+
+
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+        <div class="right">
+
+            <a href="{{ url_for('registrar_salida') }}" class="btn btn-danger btn-lg shadow"
+                style=" font-family: 'Raleway', sans-serif; " id="btn-salida-text">
+                <i class="bi bi-box-arrow-right"></i> Registrar Salida
+            </a>
+        </div>
+
+
+
+    </div>
+
+    <!-- TOAST DE ÉXITO CENTRADO -->
+    <div class="toast-container position-fixed top-50 start-50 translate-middle">
+        <div id="toastExito" class="toast text-bg-success border-0 shadow-lg" role="alert" aria-live="assertive"
+            aria-atomic="true">
+            <div class="toast-body text-center fs-4 py-4 px-5 text-white">
+                <i class="bi bi-check-circle-fill me-2"></i>
+                Tu registro ha sido exitoso
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <script>
+        AOS.init();
+
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const fechaInput = document.getElementById('fecha');
+
+            const hoy = new Date();
+            const anio = hoy.getFullYear();
+            const mes = (hoy.getMonth() + 1).toString().padStart(2, '0');
+            const dia = hoy.getDate().toString().padStart(2, '0');
+
+            fechaInput.value = `${anio}-${mes}-${dia}`;
+        });
+
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const ahora = new Date();
+            const hora = ahora.toTimeString().split(' ')[0]; // Formato HH:MM:SS
+            document.getElementById('horaEntrada').value = hora;
+        });
+
+
+        let horaSalida = "";
+
+        function registrarSalida() {
+            const now = new Date();
+            const hora = now.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            document.getElementById('horaSalida').value = hora;
+        }
+
+
+    </script>
+
+
+    <script>
+        const btnCamara = document.getElementById('abrirCamara');
+        const inputFoto = document.getElementById('fotoTomada');
+        const preview = document.getElementById('previewFoto');
+
+        // Abrir la vista de cámara en ventana separada
+        btnCamara.addEventListener('click', () => {
+            const camWindow = window.open('/foto', 'camaraWindow', 'width=800,height=600');
+        });
+
+        // Escuchar el mensaje que viene desde la ventana de cámara
+        window.addEventListener('message', (event) => {
+            if (event.data.type === 'fotoTomada') {
+                const base64Image = event.data.image;
+                inputFoto.value = base64Image;
+                btnCamara.style.display = 'none';
+                preview.innerHTML = `<img src="${base64Image}" class="img-thumbnail " style="max-width:200px;">`;
+                document.getElementById("alertaFoto").classList.add("d-none");
+            }
+        });
+
+
+    </script>
+
+
+    <script>
+        const form = document.getElementById("visitanteForm");
+        const toastEl = document.getElementById("toastExito");
+        const checkPrivacidad = document.getElementById("checkPrivacidad");
+        const toastBootstrap = new bootstrap.Toast(toastEl, {
+            autohide: false
+        });
+
+        form.addEventListener("submit", function (e) {
+
+            const fotoTomada = document.getElementById("fotoTomada").value;
+            const alerta = document.getElementById("alertaFoto");
+            const mensaje = document.getElementById("mensajeAlertaFoto");
+
+            if (!fotoTomada || fotoTomada.trim() === "") {
+                e.preventDefault();
+
+                mensaje.textContent = currentLanguage === 'es'
+                    ? "Debes tomar una fotografía antes de registrar al visitante."
+                    : "You must take a photo before registering the visitor.";
+
+                alerta.classList.remove("d-none");
+
+                return;
+            }
+
+            if (!checkPrivacidad.checked) {
+                e.preventDefault();
+                alert(currentLanguage === 'es'
+                    ? "Debes aceptar el aviso de privacidad."
+                    : "You must accept the privacy notice.");
+                return;
+            }
+
+            e.preventDefault();
+            toastBootstrap.show();
+
+            // Esperar un poco antes de enviar el formulario para que se vea el toast
+            setTimeout(() => {
+                form.submit();
+            }, 1500);
+
+        });
+    </script>
+
+
+
+
+    <script>
+        // cambio de idioma
+        const translations = {
+            'es': {
+                'titulo-formulario': 'Registro de Visitantes',
+                'btn-inicio-text': 'Inicio',
+                'label-fecha': 'Fecha',
+                'label-nombre': 'Tu nombre',
+                'label-apePaterno': 'Apellido Paterno',
+                'label-apeMaterno': 'Apellido Materno',
+                'label-correo': 'Correo',
+                'label-no-aplica': 'No Aplica',
+                'label-compania': 'Empresa (Tuya o a quién representas)',
+                'label-visitado': 'Persona a quién visita',
+                'label-oficina': 'Número de oficina',
+                'label-horaEntrada': 'Hora de entrada',
+                'label-foto': 'Foto del visitante',
+                'abrirCamara': 'Tomar foto',
+                'label-comentarios': 'Motivo de la visita',
+                'comentarios': 'Escribe aquí...',
+                'btn-registrar': 'Registrar',
+                'btn-salida-text': 'Registrar Salida',
+                'language-text': 'EN',
+                'alert-foto': 'Por favor, toma una foto antes de registrar al visitante.',
+                'label-privacidad': 'He leído y acepto el aviso de privacidad',
+                'alert-privacidad': 'Debes aceptar el aviso de privacidad.'
+
+            },
+            'en': {
+                'titulo-formulario': 'Visitor Registration',
+                'btn-inicio-text': 'Home',
+                'label-fecha': 'Date',
+                'label-nombre': "Full Name",
+                'label-apePaterno': 'Last Name',
+                'label-apeMaterno': 'Mother\'s Maiden Name',
+                'label-correo': 'Email',
+                'label-no-aplica': 'Not Applicable',
+                'label-compania': 'Company',
+                'label-visitado': 'Name of Person You Are Visiting',
+                'label-oficina': 'Office Number',
+                'label-horaEntrada': 'Entry Time',
+                'label-foto': "Visitor's Photo",
+                'abrirCamara': 'Take Photo',
+                'label-comentarios': 'Purpose of Visit',
+                'comentarios': 'Write here...',
+                'btn-registrar': 'Register',
+                'btn-salida-text': 'Register Exit',
+                'language-text': 'ES',
+                'alert-foto': 'Please take a photo before registering the visitor.',
+                'label-privacidad': 'I have read and accept the privacy notice',
+                'alert-privacidad': 'You must accept the privacy notice.'
+
+            }
+        };
+
+        let currentLanguage = 'es';
+
+        // Función para cambiar idioma
+        function changeLanguage() {
+            currentLanguage = currentLanguage === 'es' ? 'en' : 'es';
+            updateTexts();
+            toggleApellidoMaterno();
+        }
+
+        // Función para actualizar todos los textos
+        function updateTexts() {
+            const langData = translations[currentLanguage];
+
+            // Actualizar todos los elementos con ID
+            Object.keys(langData).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    if (key === 'comentarios') {
+                        element.placeholder = langData[key];
+                    } else {
+                        element.textContent = langData[key];
+                    }
+                }
+            });
+        }
+
+
+
+        // Configurar evento del botón de idioma
+        document.getElementById('language-toggle').addEventListener('click', changeLanguage);
+    </script>
+
+
+    <script>
+        // Personalizar mensaje de validación según el idioma
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('visitanteForm');
+
+            form.querySelectorAll('input, textarea').forEach(field => {
+                field.addEventListener('invalid', function (e) {
+                    e.preventDefault(); // Evita el mensaje por defecto
+
+                    // Encuentra el primer campo no válido
+                    const primerCampoInvalido = form.querySelector(":invalid");
+
+                    if (primerCampoInvalido) {
+                        // Desplaza la vista hasta el campo no válido
+                        primerCampoInvalido.scrollIntoView({ behavior: "smooth", block: "center" });
+
+                        // Aplica un borde o sombra para destacarlo (opcional)
+                        primerCampoInvalido.classList.add("is-invalid");
+
+                        // Quita el borde cuando el usuario empieza a escribir
+                        primerCampoInvalido.addEventListener("input", () => {
+                            primerCampoInvalido.classList.remove("is-invalid");
+                            primerCampoInvalido.setCustomValidity("");
+                        });
+                    }
+
+
+                    // Traducción personalizada
+                    const mensajes = {
+                        es: "Por favor, llena este campo.",
+                        en: "Please fill out this field."
+                    };
+
+                    this.setCustomValidity(mensajes[currentLanguage]);
+
+                });
+
+                // Limpiar el mensaje cuando el usuario empieza a escribir
+                field.addEventListener('input', function () {
+                    this.setCustomValidity('');
+                });
+            });
+        });
+    </script>
+
+
+
+
+</body>
+
+</html>

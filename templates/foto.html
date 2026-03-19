@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Sistema de Captura de Fotos</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .app-container {
+            width: 800px;
+            height: 600px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* 🔹 Sección superior de imágenes */
+        .image-gallery {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            background: #f3f4f6;
+            padding: 10px;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .image-gallery img {
+            width: 48%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 🔹 Contenido principal */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .header h1 {
+            font-size: 1.4rem;
+            color: #2c3e50;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .camera-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        #video {
+            width: 100%;
+            max-height: 207px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .capture-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #698890;
+            border: 3px solid white;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .capture-btn:hover {
+            background: #99A083;
+            transform: scale(1.1);
+        }
+
+        #capturedPhoto {
+            width: 42%;
+            max-height: 236px;
+            border-radius: 8px;
+            border: 2px solid #dee2e6;
+        }
+
+        .action-buttons {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .instructions {
+            flex-direction: column;
+            background: #698890;
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .instructions h3 {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 1.5rem;
+            color: #2c3e50;
+        }
+
+        .instructions li {
+            font-size: 0.85rem;
+            color: #34495e;
+        }
+
+        .alert-camera-error {
+            display: none;
+        }
+
+        /* Scrollbar personalizado */
+        .main-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .main-content::-webkit-scrollbar-thumb {
+            background: #bdc3c7;
+            border-radius: 10px;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 221px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 320px;
+            height: 200px;
+            border: 3px dashed #00ffcc;
+            border-radius: 10px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- 🔹 Sección de imágenes superiores -->
+        <div class="image-gallery">
+            <img src="../static/img/foto_credencial.png" alt="Ejemplo 1" onerror="this.style.display='none'">
+        </div>
+
+        <div class="main-content">
+
+            <div class="camera-section">
+                <div id="cameraContainer">
+                    <video id="video" autoplay playsinline></video>
+                    <div class="overlay" id="overlayMarco"></div>
+                    <div class="camera-controls mt-2">
+                        <button id="captureBtn" class="capture-btn"><i class="bi bi-camera"></i></button>
+                    </div>
+                </div>
+
+                <div id="photoPreview" class="photo-preview" style="display:none;">
+                    <h6>Vista Previa:</h6>
+                    <canvas id="capturedPhoto"></canvas>
+                    <div class="action-buttons">
+                        <button id="savePhoto" class="btn btn-success  btn-lg"><i class="bi bi-save"></i>
+                            Continuar</button>
+                        <button id="retakePhoto" class="btn   btn-lg" style="background-color: #4d4c4c; color: white;"><i
+                                class="bi bi-arrow-repeat"></i> Otra
+                            Foto</button>
+                    </div>
+                </div>
+
+                <div id="cameraError" class="alert alert-danger alert-camera-error mt-3">
+                    <i class="bi bi-exclamation-triangle"></i> No se pudo acceder a la cámara. Verifique los permisos
+                    del navegador.
+                </div>
+
+                <div id="successMessage" class="alert alert-success mt-2" style="display:none;">
+                    <i class="bi bi-check-circle"></i> Foto guardada exitosamente
+                </div>
+            </div>
+
+            <div class="instructions">
+                <span style="color: white;" class="mt-4 text-center">
+                    <h4> *Si tu foto sale borrosa por favor toma otra* </h4>
+                </span>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let stream = null, capturedImageData = null;
+        const video = document.getElementById('video');
+        const captureBtn = document.getElementById('captureBtn');
+        const photoPreview = document.getElementById('photoPreview');
+        const capturedPhoto = document.getElementById('capturedPhoto');
+        const savePhotoBtn = document.getElementById('savePhoto');
+        const retakePhotoBtn = document.getElementById('retakePhoto');
+        const successMessage = document.getElementById('successMessage');
+        const cameraError = document.getElementById('cameraError');
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({
+                    video: { width: 1280, height: 720, facingMode: 'environment' }
+                });
+                video.srcObject = stream;
+                captureBtn.style.display = 'inline-block'; // se muestra cuando la cámara está activa
+            } catch (error) {
+                console.error('Error de cámara:', error);
+                cameraError.style.display = 'block';
+            }
+        });
+
+        const overlay = document.getElementById('overlayMarco');
+
+        // 🔹 Capturar foto
+        captureBtn.addEventListener('click', () => {
+            overlay.style.display = 'none';
+            const ctx = capturedPhoto.getContext('2d');
+            capturedPhoto.width = video.videoWidth;
+            capturedPhoto.height = video.videoHeight;
+            ctx.drawImage(video, 0, 0, capturedPhoto.width, capturedPhoto.height);
+            capturedImageData = capturedPhoto.toDataURL('image/jpeg', 0.8);
+            photoPreview.style.display = 'block';
+            video.style.display = 'none';
+            captureBtn.style.display = 'none'; // ⛔ se oculta el botón rojo después de tomar la foto
+        });
+
+        // 🔹 Tomar otra foto
+        retakePhotoBtn.addEventListener('click', () => {
+            photoPreview.style.display = 'none';
+            video.style.display = 'block';
+            captureBtn.style.display = 'inline-block'; // ✅ vuelve a mostrar el botón rojo
+            capturedImageData = null;
+        });
+
+        // Guardar foto en Excel
+        savePhotoBtn.addEventListener('click', async () => {
+            if (!capturedImageData) {
+                alert('No hay foto para guardar');
+                return;
+            }
+
+            // 🔹 Enviar la foto en base64 al formulario principal
+            if (window.opener && !window.opener.closed) {
+                window.opener.postMessage({
+                    type: 'fotoTomada',
+                    image: capturedImageData
+                }, "*");
+            }
+
+            // 🔹 Mostrar mensaje de éxito local
+            successMessage.style.display = 'block';
+
+            // 🔹 Esperar un poco y cerrar ventana
+            setTimeout(() => {
+                window.close();
+            }, 800);
+        });
+    </script>
+</body>
+
+</html>

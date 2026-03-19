@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="{{url_for('static', filename='img/icon.png')}}" type="image/x-icon">
+    <title>OCW Kiosko</title>
+</head>
+
+<body class="bg-light">
+
+    <div class="container py-5">
+
+        <div class="left">
+            <a href="{{ url_for('index') }}" class="btn btn-primary btn-inicio d-flex align-items-center gap-2 shadow">
+                <i class="bi bi-arrow-left"></i>
+                <span class="btn-inicio-text">Inicio</span>
+            </a>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+
+
+
+                <div class="card shadow-lg">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4 class="mb-0">
+                            <i class="bi bi-truck me-2"></i>
+                            Registro de Proveedores
+                        </h4>
+                    </div>
+
+                    <div class="card-body">
+                        <form action="/proveedorForm" id="proveedorForm" method="post">
+
+                            <div class="row">
+                                <!-- Nombre -->
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Nombre del proveedor</label>
+                                    <input id="nombreProve" name="nombreProve" type="text" class="form-control"
+                                        required>
+                                </div>
+
+                                <!-- Apellido -->
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Apellido</label>
+                                    <input id="apellidoProve" name="apellidoProve" type="text" class="form-control"
+                                        required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <!-- Empresa -->
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Empresa proveedora</label>
+                                    <input id="empresaProve" name="empresaProve" type="text" class="form-control"
+                                        required>
+                                </div>
+
+                                <!-- Servicio -->
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Servicio que realiza</label>
+                                    <select id="servicioProve" name="servicioProve" class="form-select" required>
+                                        <option value="">Seleccione un servicio</option>
+                                        <option>Mantenimiento</option>
+                                        <option>Limpieza</option>
+                                        <option>Internet / Telecomunicaciones</option>
+                                        <option>Seguridad</option>
+                                        <option>Entrega de insumos</option>
+                                        <option>Otro</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3" id="otroServicioDiv" style="display: none;">
+                                    <label class="form-label">Especifique el servicio</label>
+                                    <input type="text" id="otroServicio" class="form-control"
+                                        placeholder="Escriba el servicio">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <!-- Persona visitada -->
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Persona a quien visita</label>
+                                    <input id="personaProve" name="personaProve" type="text" class="form-control"
+                                        required>
+                                </div>
+
+                                <!-- Oficina -->
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Área / Oficina</label>
+                                    <input id="areaProve" name="areaProve" type="text" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <!-- Motivo -->
+                            <div class="mb-3">
+                                <label class="form-label">Detalle del servicio</label>
+                                <textarea id="detalleServicioProve" name="detalleServicioProve" class="form-control"
+                                    rows="3" placeholder="Ej. Revisión de aire acondicionado"></textarea>
+                            </div>
+
+                            <!-- Hora entrada -->
+                            <div class="mb-3" data-aos="fade-left" style="display: none;">
+                                <label for="horaEntrada" class="form-label"
+                                    style=" font-family: 'Raleway', sans-serif; ">Hora de entrada</label>
+                                <input type="text" class="form-control" id="horaEntrada" name="horaEntrada" required
+                                    readonly>
+                            </div>
+
+                            <div class="mb-3" data-aos="fade-right" style="display: none;">
+                                <label for="fecha" class="form-label" style=" font-family: 'Raleway', sans-serif; "
+                                    id="label-fecha">Fecha</label>
+                                <input type="date" class="form-control" id="fecha" name="fecha" required readonly>
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-success px-5">
+                                    <i class="bi bi-check-circle me-2"></i>
+                                    Registrar proveedor
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const fechaInput = document.getElementById('fecha');
+
+            const hoy = new Date();
+            const anio = hoy.getFullYear();
+            const mes = (hoy.getMonth() + 1).toString().padStart(2, '0');
+            const dia = hoy.getDate().toString().padStart(2, '0');
+
+            fechaInput.value = `${anio}-${mes}-${dia}`;
+        });
+
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const ahora = new Date();
+            const hora = ahora.toTimeString().split(' ')[0]; // Formato HH:MM:SS
+            document.getElementById('horaEntrada').value = hora;
+        });
+    </script>
+
+    <script>
+        const servicioSelect = document.getElementById('servicioProve');
+        const otroServicioDiv = document.getElementById('otroServicioDiv');
+        const otroServicioInput = document.getElementById('otroServicio');
+
+        servicioSelect.addEventListener('change', () => {
+            if (servicioSelect.value === 'Otro') {
+                otroServicioDiv.style.display = 'block';
+                otroServicioInput.required = true;
+            } else {
+                otroServicioDiv.style.display = 'none';
+                otroServicioInput.required = false;
+                otroServicioInput.value = '';
+            }
+        });
+
+
+        form.addEventListener('submit', () => {
+            if (servicioSelect.value === 'Otro' && otroServicioInput.value.trim() !== '') {
+                servicioSelect.value = otroServicioInput.value.trim();
+            }
+        });
+    </script>
+</body>
+
+</html>

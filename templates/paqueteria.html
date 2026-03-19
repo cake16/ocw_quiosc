@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="{{url_for('static', filename='img/icon.png')}}" type="image/x-icon">
+    <title>Paquetería</title>
+
+</head>
+
+<body class="bg-light fondo-vistas">
+
+
+    <div>
+        <a href="{{url_for('index')}}"
+            class="btn btn-primary mb-4 d-flex align-items-center gap-2 shadow btn-back-paqueteria">
+            <i class="bi bi-arrow-left"></i>
+            <span>Inicio</span>
+        </a>
+    </div>
+
+
+
+    <!-- Indicador de pasos -->
+    <div class="step-indicator">
+        <div class="step active" id="step-1">1</div>
+        <div class="step-line" id="line-1-2"></div>
+        <div class="step" id="step-2">2</div>
+        <div class="step-line" id="line-2-3"></div>
+        <div class="step" id="step-3">3</div>
+    </div>
+
+    <div class="header_paquete">
+        <div class="paquete_titulo">
+            <h2 class="logo_titulo">
+                <img src="https://cdn-icons-png.flaticon.com/512/2838/2838694.png" alt="Mensajería" class="img_logo">
+                <span id="step-title">Registro de Paquete</span>
+            </h2>
+            <p class="text-muted" id="step-description">Selecciona la empresa de paquetería que entregó tu paquete
+            </p>
+        </div>
+
+
+        <!-- Paso 1: Selección de empresa -->
+        <!-- Paso 1: Selección de empresa -->
+        <div class="step-container active" id="step-container-1">
+            <div class="form-container">
+                <div class="mb-4">
+                    <label for="empresa-select" class="form-label fw-bold">
+                        Selecciona la paquetería*
+                    </label>
+
+                    <select class="form-select" id="empresa-select" required>
+                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option>99 Minutos</option>
+                        <option>AMPM</option>
+                        <option>Amazon</option>
+                        <option>ATM Smart</option>
+                        <option>BigSmart</option>
+                        <option>CN</option>
+                        <option>Correos de México</option>
+                        <option>DHL</option>
+                        <option>Ebay</option>
+                        <option>Edenred</option>
+                        <option>Estafeta</option>
+                        <option>Fedex</option>
+                        <option>iMile</option>
+                        <option>Ipsy</option>
+                        <option>J&T Express</option>
+                        <option>Mercado Libre</option>
+                        <option>Mensajería Dinámica</option>
+                        <option>PaquetExpress</option>
+                        <option>Redpack</option>
+                        <option>Sendex</option>
+                        <option>Tres Guerras</option>
+                        <option>UPS</option>
+                    </select>
+                </div>
+
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-primary" id="next-to-step-2">
+                        Siguiente <i class="bi bi-arrow-right ms-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Paso 2: Formulario de información -->
+        <div class="step-container" id="step-container-2">
+            <div class="form-container">
+                <div class="empresa-seleccionada mb-4 p-3 bg-light rounded">
+                    <h5 class="mb-1">Empresa seleccionada:</h5>
+                    <p class="h5 text-primary mb-0" id="selected-company">-</p>
+                </div>
+
+                <form action="/paqueteria_form" id="paqueteria-form" method="post">
+
+                    <input type="hidden" name="empresa" id="form-empresa">
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="nombre" class="form-label">Destinatario*</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="departamento" class="form-label">N° de Oficina*</label>
+                            <input type="text" class="form-control" id="departamento" name="departamento" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="numero_guia" class="form-label">Guía*</label>
+                            <input type="text" class="form-control" id="numero_guia" name="numero_guia"
+                                pattern="[A-Za-z0-9\-]+" title="La guía puede contener letras y números" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3" data-aos="fade-right" style="display: none;">
+                        <label for="fecha" class="form-label" style=" font-family: 'Raleway', sans-serif; "
+                            id="label-fecha">Fecha</label>
+                        <input type="date" class="form-control" id="fecha" name="fecha" required readonly>
+                    </div>
+                    <div class="mb-3" data-aos="fade-left" style="display: none;">
+                        <label for="horaEntrada" class="form-label" style=" font-family: 'Raleway', sans-serif; ">Hora
+                            de entrada</label>
+                        <input type="text" class="form-control" id="horaEntrada" name="horaEntrada" required readonly>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="comentarios" class="form-label">Comentarios adicionales</label>
+                        <textarea class="form-control" id="comentarios" name="comentarios" rows="3"></textarea>
+                    </div>
+                </form>
+
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-outline-secondary btn-navigation" id="back-to-step-1">
+                        <i class="bi bi-arrow-left me-2"></i>Anterior
+                    </button>
+                    <button class="btn btn-primary btn-navigation" id="next-to-step-3">
+                        Siguiente <i class="bi bi-arrow-right ms-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paso 3: Confirmación -->
+        <div class="step-container" id="step-container-3">
+            <div class="form-container text-center">
+                <div class="mb-4">
+                    <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+                </div>
+
+                <h3 class="mb-3">Confirmación de Registro</h3>
+
+                <div class="confirmation-details mb-4 p-4 bg-light rounded text-start">
+                    <h5 class="mb-3">Resumen de la información:</h5>
+
+                    <div class="row mb-2">
+                        <div class="col-4 fw-bold">Empresa:</div>
+                        <div class="col-8" id="confirm-empresa">-</div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4 fw-bold">Nombre:</div>
+                        <div class="col-8" id="confirm-nombre">-</div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4 fw-bold">Departamento:</div>
+                        <div class="col-8" id="confirm-departamento">-</div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-4 fw-bold">Número de guía:</div>
+                        <div class="col-8" id="confirm-guia">-</div>
+                    </div>
+
+
+
+                    <div class="row mb-2">
+                        <div class="col-4 fw-bold">Comentarios:</div>
+                        <div class="col-8" id="confirm-comentarios">-</div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center gap-3">
+                    <button class="btn btn-outline-secondary btn-navigation" id="back-to-step-2">
+                        <i class="bi bi-arrow-left me-2"></i>Editar
+                    </button>
+                    <button class="btn btn-success btn-navigation" id="submit-form">
+                        <i class="bi bi-check-lg me-2"></i>Confirmar Registro
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const fechaInput = document.getElementById('fecha');
+
+            const hoy = new Date();
+            const anio = hoy.getFullYear();
+            const mes = (hoy.getMonth() + 1).toString().padStart(2, '0');
+            const dia = hoy.getDate().toString().padStart(2, '0');
+
+            fechaInput.value = `${anio}-${mes}-${dia}`;
+        });
+
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const ahora = new Date();
+            const hora = ahora.toTimeString().split(' ')[0]; // Formato HH:MM:SS
+            document.getElementById('horaEntrada').value = hora;
+        });
+
+        ///////////////////////////////////////////////////////////////////
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            let selectedCompany = '';
+
+            const empresaSelect = document.getElementById('empresa-select');
+            const selectedCompanyElement = document.getElementById('selected-company');
+            const formEmpresaInput = document.getElementById('form-empresa');
+
+            document.getElementById('next-to-step-2').addEventListener('click', function () {
+
+                if (!empresaSelect.value) {
+                    empresaSelect.reportValidity();
+                    return;
+                }
+
+                selectedCompany = empresaSelect.value;
+
+                selectedCompanyElement.textContent = selectedCompany;
+                formEmpresaInput.value = selectedCompany;
+
+                navigateToStep(2);
+            });
+
+            // Función para navegar entre pasos
+            function navigateToStep(step) {
+                // Actualizar indicador de pasos
+                updateStepIndicator(step);
+
+                // Mostrar paso correspondiente
+                document.querySelectorAll('.step-container').forEach(container => {
+                    container.classList.remove('active');
+                });
+                document.getElementById(`step-container-${step}`).classList.add('active');
+
+                // Actualizar título y descripción
+                updateStepTitle(step);
+            }
+
+            function updateStepIndicator(step) {
+                // Reset all steps
+                const step1 = document.getElementById('step-1');
+                const step2 = document.getElementById('step-2');
+                const step3 = document.getElementById('step-3');
+                const line1 = document.getElementById('line-1-2');
+                const line2 = document.getElementById('line-2-3');
+
+                step1.classList.remove('active', 'completed');
+                step2.classList.remove('active', 'completed');
+                step3.classList.remove('active', 'completed');
+                line1.classList.remove('active');
+                line2.classList.remove('active');
+
+                if (step >= 1) {
+                    step1.classList.add('completed');
+                    if (step === 1) step1.classList.add('active');
+                }
+
+                if (step >= 2) {
+                    step2.classList.add('completed');
+                    line1.classList.add('active');
+                    if (step === 2) step2.classList.add('active');
+                }
+
+                if (step >= 3) {
+                    step3.classList.add('completed');
+                    line2.classList.add('active');
+                    if (step === 3) step3.classList.add('active');
+                }
+            }
+
+            function updateStepTitle(step) {
+                const stepTitle = document.getElementById('step-title');
+                const stepDescription = document.getElementById('step-description');
+
+                const titles = {
+                    1: {
+                        title: 'Registro de Paquete',
+                        description: 'Selecciona la empresa de paquetería que entregó tu paquete'
+                    },
+                    2: {
+                        title: 'Información del Paquete',
+                        description: 'Complete la información del paquete recibido'
+                    },
+                    3: {
+                        title: 'Confirmación',
+                        description: 'Revise y confirme la información del registro'
+                    }
+                };
+
+                stepTitle.textContent = titles[step].title;
+                stepDescription.textContent = titles[step].description;
+            }
+
+            // Manejar botones de navegación
+            document.getElementById('next-to-step-3')?.addEventListener('click', function () {
+                // Validar formulario
+                const form = document.getElementById('paqueteria-form');
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+
+                // Recopilar datos y navegar al paso 3
+                collectFormData();
+                navigateToStep(3);
+            });
+
+            document.getElementById('back-to-step-1')?.addEventListener('click', function () {
+                navigateToStep(1);
+            });
+
+            document.getElementById('back-to-step-2')?.addEventListener('click', function () {
+                navigateToStep(2);
+            });
+
+            document.getElementById('submit-form')?.addEventListener('click', function () {
+                document.getElementById('paqueteria-form').submit();
+            });
+
+
+            function collectFormData() {
+                // Recopilar datos del formulario para confirmación
+                formData = {
+                    empresa: selectedCompany,
+                    nombre: document.getElementById('nombre').value,
+                    departamento: document.getElementById('departamento').value,
+                    numero_guia: document.getElementById('numero_guia').value,
+                    comentarios: document.getElementById('comentarios').value || ''
+                };
+
+                // Actualizar vista de confirmación
+                document.getElementById('confirm-empresa').textContent = formData.empresa;
+                document.getElementById('confirm-nombre').textContent = formData.nombre;
+                document.getElementById('confirm-departamento').textContent = formData.departamento;
+                document.getElementById('confirm-guia').textContent = formData.numero_guia;
+                document.getElementById('confirm-comentarios').textContent = formData.comentarios || 'Ninguno';
+            }
+        });
+    </script>
+</body>
+
+</html>

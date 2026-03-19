@@ -1,0 +1,396 @@
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --accent-color: #ffc107;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+}
+
+body,
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.indexH {
+    background-color: #747272;
+    height: 117px;
+}
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    background: url('../img/bg_ocw.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: 1fr minmax(0, 1200px) 1fr;
+    align-items: flex-start;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+
+
+.left,
+.center,
+.right {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.left {
+    justify-content: flex-start;
+}
+
+.right {
+    justify-content: flex-end;
+}
+
+.card {
+    border-radius: 18px;
+    overflow: hidden;
+    min-height: 75vh;   /* ⬅️ ocupa 75% de la pantalla */
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+.card-header {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+/* 🔹 Ajuste visual opcional */
+.top-space {
+    margin-top: -5px;
+}
+
+
+
+.btn-outline-visitante {
+    background-color: #698890;
+    color: white;
+    border-color: #698890;
+
+}
+
+.btn-outline-visitante:hover {
+    background-color: #698890;
+    color: white;
+    border-color: #E09B89;
+}
+
+
+
+
+.cont_img {
+
+    background: linear-gradient(to right, #d5cdcd, #e6f8fa);
+    /* fondo degradado */
+    padding: 10px 10px;
+    border-radius: 15px;
+    margin-top: 35px;
+}
+
+.btn-opcion {
+    width: 100%;
+    min-height: 110px;
+    /* ⬅️ ALTO del botón */
+    font-size: 1.6rem;
+    /* ⬅️ Texto más grande */
+    padding: 30px 20px;
+    /* ⬅️ Más espacio interno */
+    border-radius: 14px;
+}
+
+
+.btn-opcion:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #E09B89;
+
+}
+
+.contenedor-start {
+    background: rgba(255, 255, 255, 0.23);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+
+    width: 100%;
+    max-width: 1200px;   /* ⬅️ MÁS ANCHO */
+}
+
+
+
+
+
+/* Ajustes para tarjetas y encabezados 
+.card {
+    max-width: 851px;
+    margin: 0 auto;
+}
+
+.card-header {
+    width: 90%;
+    margin: 0 auto;
+    border-top-left-radius: 8px !important;
+    border-top-right-radius: 8px !important;
+    margin-top: 10px;
+}
+    */
+
+/*vistas css*/
+
+.fondo-vistas {
+    background: url(../img/bg-visitas.jpg) no-repeat center center fixed;
+    background-size: cover;
+    padding: 20px;
+}
+
+
+/* visitas */
+
+.bg-informes {
+
+    background: url(../img/bg-informes.jpg) no-repeat center center fixed;
+    background-size: cover;
+
+
+}
+
+
+.bg-option {
+    background: #698890;
+}
+
+
+/*  Formulario centrado sin márgenes */
+.form-container-visitantes {
+    width: 100%;
+}
+
+
+
+/* paqueteria */
+
+.step-indicator {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.step {
+    width: 30px;
+    height: 30px;
+    background-color: #dee2e6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #6c757d;
+    transition: all 0.3s ease;
+}
+
+.step.active {
+    background-color: #0d6efd;
+    color: white;
+    transform: scale(1.1);
+}
+
+.step.completed {
+    background-color: #198754;
+    color: white;
+}
+
+.step-line {
+    flex: 1;
+    height: 3px;
+    background-color: #dee2e6;
+    margin: 0 5px;
+    align-self: center;
+    max-width: 100px;
+}
+
+.step-line.active {
+    background-color: #0d6efd;
+}
+
+.step-container {
+    display: none;
+}
+
+.step-container.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+.form-container {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-top: 20px;
+}
+
+.btn-navigation {
+    padding: 10px 25px;
+    font-weight: 500;
+    border-radius: 50px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .op_paqueteria {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+    }
+
+    .img_paqueterias {
+        width: 60px;
+        height: 60px;
+    }
+
+    .step {
+        width: 25px;
+        height: 25px;
+        font-size: 0.8rem;
+    }
+
+    .step-line {
+        max-width: 50px;
+    }
+}
+
+.header_paquete {
+
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin: 20px 232px;
+    max-width: 1200px;
+}
+
+.paquete_titulo {
+    text-align: center;
+
+    border-bottom: 2px solid var(--light-color);
+}
+
+.logo_titulo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    color: var(--dark-color);
+    font-weight: 700;
+}
+
+.img_logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.op_paqueteria {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.op_boton {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 15px;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    background: white;
+    transition: all 0.3s ease;
+    color: var(--dark-color);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.op_boton:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+
+}
+
+.img_paqueterias {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.op_boton:hover .img_paqueterias {
+    transform: scale(1.1);
+}
+
+
+.op_boton.selected {
+    background-color: #d1e7ff;
+}
+
+.btn-paquete {
+    width: 149px;
+    height: 46px;
+}
+
+.btn-back-paqueteria {
+    font-size: 1rem;
+    border-radius: 999px;
+    padding: 10px 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    width: 120px;
+    height: auto;
+    transition: all 0.2s ease-in-out;
+
+}
+
+.btn-back-paqueteria i {
+    font-size: 1.3rem;
+}
+
+/* Hover effect opcional moderno */
+.btn-back-paqueteria:hover {
+    background-color: #0056b3;
+    /* un azul más oscuro */
+    transform: translateY(-2px);
+}
+
