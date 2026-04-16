@@ -230,6 +230,45 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+
+    <script>
+
+        // Función para reproducir un sonido de éxito
+        function reproducirSonidoExito() {
+            try {
+                // Crear contexto de audio
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+                // Crear oscilador para un tono agradable
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+
+                // Conectar nodos
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+
+                // Configurar sonido (tono de éxito)
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(880, audioContext.currentTime); // La5
+                oscillator.frequency.setValueAtTime(1174.66, audioContext.currentTime + 0.1); // Re6
+
+                // Control de volumen (evitar que suene muy fuerte)
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+
+                // Reproducir
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 0.3);
+
+                console.log('🔊 Sonido de éxito reproducido');
+            } catch (error) {
+                console.log('⚠️ No se pudo reproducir el sonido:', error);
+            }
+        }
+
+    </script>
+
+
     <script>
         AOS.init();
 
@@ -264,7 +303,7 @@
 
     </script>
 
-   
+
 
     <script>
         const btnCamara = document.getElementById('abrirCamara');
@@ -326,6 +365,8 @@
             }
 
             e.preventDefault();
+            // REPRODUCIR SONIDO DE ÉXITO
+            reproducirSonidoExito();
             toastBootstrap.show();
 
             // Esperar un poco antes de enviar el formulario para que se vea el toast
