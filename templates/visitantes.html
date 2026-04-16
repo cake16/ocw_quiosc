@@ -73,7 +73,7 @@
                                         <label for="nombre" class="form-label"
                                             style=" font-family: 'Raleway', sans-serif; " id="label-nombre">Tu
                                             nombre</label>
-                                        <input type="text" class="form-control" id="nombre" name="nombre" required >
+                                        <input type="text" class="form-control" id="nombre" name="nombre" required>
                                     </div>
 
                                     <div class="mb-3" data-aos="fade-left">
@@ -168,10 +168,12 @@
 
                                         <div class="form-check mt-3 text-center">
 
-                                            <input class="form-check-input" type="checkbox" id="checkPrivacidad" style="transform: scale(1.5); margin-right: 10px;">
+                                            <input class="form-check-input" type="checkbox" id="checkPrivacidad"
+                                                style="transform: scale(1.5); margin-right: 10px;">
                                             <label class="form-check-label" for="checkPrivacidad" id="label-privacidad">
                                                 <h5> He leído y acepto el <a class="link-opacity-100-hover"
-                                                        href="{{ url_for('priv') }}"> Aviso
+                                                        href="{{ url_for('priv') }}"
+                                                        onclick="guardarFormularioAntesDeSalir()"> Aviso
                                                         de privacidad </a>
                                                 </h5>
                                             </label>
@@ -262,6 +264,7 @@
 
     </script>
 
+   
 
     <script>
         const btnCamara = document.getElementById('abrirCamara');
@@ -466,6 +469,84 @@
                     this.setCustomValidity('');
                 });
             });
+        });
+    </script>
+
+    <script>
+        // ========== GUARDAR FORMULARIO ANTES DE IR AL AVISO ==========
+        function guardarFormularioAntesDeSalir() {
+            const formData = {
+                nombre: document.getElementById('nombre')?.value || '',
+                apePaterno: document.getElementById('apePaterno')?.value || '',
+                visitado: document.getElementById('visitado')?.value || '',
+                oficina: document.getElementById('oficina')?.value || '',
+                numGafe: document.getElementById('numGafe')?.value || '',
+                fotoTomada: document.getElementById('fotoTomada')?.value || '',
+                ruta_foto: document.getElementById('ruta_foto')?.value || '',
+                previewHTML: document.getElementById('previewFoto')?.innerHTML || ''
+            };
+
+            localStorage.setItem('formularioVisitanteTemp', JSON.stringify(formData));
+            console.log('✅ Formulario guardado antes de ir al aviso de privacidad');
+        }
+
+        // ========== RESTAURAR FORMULARIO AL REGRESAR ==========
+        function restaurarFormularioDespuesDeRegresar() {
+            const datosGuardados = localStorage.getItem('formularioVisitanteTemp');
+
+            if (datosGuardados) {
+                try {
+                    const formData = JSON.parse(datosGuardados);
+
+                    if (document.getElementById('nombre'))
+                        document.getElementById('nombre').value = formData.nombre || '';
+                    if (document.getElementById('apePaterno'))
+                        document.getElementById('apePaterno').value = formData.apePaterno || '';
+                    if (document.getElementById('visitado'))
+                        document.getElementById('visitado').value = formData.visitado || '';
+                    if (document.getElementById('oficina'))
+                        document.getElementById('oficina').value = formData.oficina || '';
+                    if (document.getElementById('numGafe'))
+                        document.getElementById('numGafe').value = formData.numGafe || '';
+
+                    if (formData.fotoTomada) {
+                        document.getElementById('fotoTomada').value = formData.fotoTomada;
+                        document.getElementById('ruta_foto').value = formData.ruta_foto || '';
+
+                        const btnCamara = document.getElementById('abrirCamara');
+                        const preview = document.getElementById('previewFoto');
+
+                        if (btnCamara) btnCamara.style.display = 'none';
+                        if (preview) preview.innerHTML = formData.previewHTML ||
+                            `<img src="${formData.fotoTomada}" class="img-thumbnail" style="max-width:200px;">`;
+                    }
+
+                    console.log('✅ Formulario restaurado después del aviso de privacidad');
+                    localStorage.removeItem('formularioVisitanteTemp');
+                } catch (error) {
+                    console.error('❌ Error al restaurar el formulario:', error);
+                }
+            }
+        }
+
+        // ========== MODIFICAR EL ENLACE DEL AVISO DE PRIVACIDAD ==========
+        document.addEventListener('DOMContentLoaded', () => {
+            // Restaurar formulario al cargar
+            restaurarFormularioDespuesDeRegresar();
+
+            // Agregar el evento al enlace del aviso (si existe)
+            const linkPrivacidad = document.querySelector('a[href*="priv"]');
+            if (linkPrivacidad) {
+                linkPrivacidad.addEventListener('click', guardarFormularioAntesDeSalir);
+            }
+
+            // Marcar checkbox si viene de aceptar
+            const acepto = localStorage.getItem("aceptoPrivacidad");
+            if (acepto === "true") {
+                const check = document.getElementById("checkPrivacidad");
+                if (check) check.checked = true;
+                localStorage.removeItem("aceptoPrivacidad");
+            }
         });
     </script>
 

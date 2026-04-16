@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             background-color: #f1f5f9;
             font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
@@ -19,19 +21,22 @@
             line-height: 1.6;
             color: #0f172a;
         }
+
         .privacy-card {
             max-width: 900px;
             background-color: #ffffff;
             border-radius: 24px;
-            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.2);
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.2);
             overflow: hidden;
             border: 1px solid #e2e8f0;
         }
+
         .header {
             background: linear-gradient(135deg, #0b2b4f 0%, #143b66 100%);
             color: white;
             padding: 2rem 2.5rem;
         }
+
         .header h1 {
             font-size: 2rem;
             font-weight: 600;
@@ -39,6 +44,7 @@
             line-height: 1.2;
             margin-bottom: 0.5rem;
         }
+
         .header h1 small {
             font-size: 1.2rem;
             font-weight: 400;
@@ -46,21 +52,25 @@
             color: #b3d4f0;
             margin-top: 0.25rem;
         }
+
         .header .legal-note {
             font-size: 0.95rem;
             color: #cbd5e1;
             border-left: 3px solid #3b82f6;
             padding-left: 1rem;
             margin-top: 1rem;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 0 8px 8px 0;
         }
+
         .content {
             padding: 2.5rem;
         }
+
         .section {
             margin-bottom: 2.25rem;
         }
+
         .section-title {
             font-size: 1.4rem;
             font-weight: 600;
@@ -72,6 +82,7 @@
             align-items: center;
             gap: 0.5rem;
         }
+
         .section-title span {
             background: #0b2b4f;
             color: white;
@@ -84,6 +95,7 @@
             font-size: 0.9rem;
             font-weight: 500;
         }
+
         .data-list {
             list-style: none;
             display: grid;
@@ -94,17 +106,20 @@
             border-radius: 20px;
             border: 1px solid #e2e8f0;
         }
+
         .data-list li {
             display: flex;
             align-items: center;
             gap: 0.6rem;
         }
+
         .data-list li::before {
             content: "●";
             color: #2563eb;
             font-weight: bold;
             font-size: 1.2rem;
         }
+
         .highlight-box {
             background: #f0f9ff;
             border-left: 4px solid #2563eb;
@@ -112,10 +127,12 @@
             border-radius: 12px;
             margin: 1.5rem 0;
         }
+
         .accent-text {
             color: #1e40af;
             font-weight: 500;
         }
+
         .arco-box {
             background: #ecfdf5;
             border: 1px solid #a7f3d0;
@@ -123,10 +140,12 @@
             border-radius: 20px;
             margin-top: 1.5rem;
         }
+
         .arco-box strong {
             color: #065f46;
             font-size: 1.1rem;
         }
+
         .email {
             background: #ffffff;
             border: 1px solid #94a3b8;
@@ -138,6 +157,7 @@
             display: inline-block;
             margin: 0.5rem 0;
         }
+
         .footer {
             background: #f1f5f9;
             padding: 1.5rem 2.5rem;
@@ -149,6 +169,7 @@
             justify-content: space-between;
             align-items: center;
         }
+
         .acceptance {
             background: #e6f7ff;
             border-radius: 30px;
@@ -157,14 +178,27 @@
             border: 1px dashed #0284c7;
             color: #0369a1;
         }
+
         @media (max-width: 600px) {
-            body { padding: 1rem 0.5rem; }
-            .header { padding: 1.5rem; }
-            .content { padding: 1.5rem; }
-            .data-list { grid-template-columns: 1fr; }
+            body {
+                padding: 1rem 0.5rem;
+            }
+
+            .header {
+                padding: 1.5rem;
+            }
+
+            .content {
+                padding: 1.5rem;
+            }
+
+            .data-list {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="privacy-card">
         <div class="header">
@@ -173,7 +207,8 @@
                 <small>REGISTRO DIGITAL DE VISITANTES</small>
             </h1>
             <p class="legal-note">
-                Edificio Orbita / Orbita CoWorks · En cumplimiento de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, su Reglamento y los Lineamientos del Aviso de Privacidad.
+                Edificio Orbita / Orbita CoWorks · En cumplimiento de la Ley Federal de Protección de Datos Personales
+                en Posesión de los Particulares, su Reglamento y los Lineamientos del Aviso de Privacidad.
             </p>
         </div>
 
@@ -181,7 +216,11 @@
             <!-- Responsable -->
             <div class="section">
                 <div class="section-title"><span>1</span> Responsable</div>
-                <p><strong>MANUEL GUTIÉRREZ GONZÁLEZ</strong> (EDIFICIO ORBITA Y/O ORBITA COWORKS), con domicilio en <strong>Ignacio Pérez Sur 28, Col. El Carrizal, Querétaro, Querétaro, C.P. 76030</strong>, es responsable del tratamiento de los datos personales recabados a través del presente formulario digital de registro de visitantes en recepción.</p>
+                <p><strong>MANUEL GUTIÉRREZ GONZÁLEZ</strong> (EDIFICIO ORBITA Y/O ORBITA COWORKS), con domicilio en
+                    <strong>Ignacio Pérez Sur 28, Col. El Carrizal, Querétaro, Querétaro, C.P. 76030</strong>, es
+                    responsable del tratamiento de los datos personales recabados a través del presente formulario
+                    digital de registro de visitantes en recepción.
+                </p>
             </div>
 
             <!-- Datos recabados -->
@@ -197,55 +236,79 @@
                     <li>Imagen y/o videograbación a través del sistema de videovigilancia del edificio</li>
                 </ul>
                 <div class="highlight-box">
-                    <p>✚ <strong>Nota:</strong> Edificio Orbita y Orbita CoWorks <strong class="accent-text">no recaba datos personales sensibles</strong> a través de este medio.</p>
+                    <p>✚ <strong>Nota:</strong> Edificio Orbita y Orbita CoWorks <strong class="accent-text">no recaba
+                            datos personales sensibles</strong> a través de este medio.</p>
                 </div>
             </div>
 
             <!-- Finalidades -->
             <div class="section">
                 <div class="section-title"><span>3</span> Finalidades del tratamiento</div>
-                <p>Los datos personales recabados serán utilizados exclusivamente para las siguientes finalidades primarias:</p>
+                <p>Los datos personales recabados serán utilizados exclusivamente para las siguientes finalidades
+                    primarias:</p>
                 <ul style="margin: 1rem 0 0 2rem; color: #1e293b;">
                     <li>Control y registro de acceso al edificio.</li>
                     <li>Identificación de visitantes y validación de ingreso.</li>
-                    <li>Protección y seguridad de las personas, arrendatarios, usuarios de coworking y bienes dentro del inmueble.</li>
+                    <li>Protección y seguridad de las personas, arrendatarios, usuarios de coworking y bienes dentro del
+                        inmueble.</li>
                     <li>Atención y seguimiento de incidentes de seguridad.</li>
                     <li>Cumplimiento de requerimientos de autoridades competentes cuando legalmente proceda.</li>
                 </ul>
                 <div class="highlight-box" style="margin-top: 1rem;">
-                    <p>❌ Sus datos <strong>no serán utilizados</strong> para fines publicitarios, promocionales ni comerciales.</p>
+                    <p>❌ Sus datos <strong>no serán utilizados</strong> para fines publicitarios, promocionales ni
+                        comerciales.</p>
                 </div>
             </div>
 
             <!-- Conservación -->
             <div class="section">
                 <div class="section-title"><span>4</span> Conservación de la información</div>
-                <p>Los datos serán conservados únicamente por el tiempo necesario para cumplir con las finalidades descritas y conforme a las disposiciones legales aplicables.</p>
+                <p>Los datos serán conservados únicamente por el tiempo necesario para cumplir con las finalidades
+                    descritas y conforme a las disposiciones legales aplicables.</p>
             </div>
 
             <!-- Derechos ARCO -->
             <div class="section arco-box">
                 <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem;">
-                    <span style="background: #065f46; color: white; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold;">AR</span>
+                    <span
+                        style="background: #065f46; color: white; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold;">AR</span>
                     <strong style="font-size: 1.3rem;">Derechos ARCO</strong>
                 </div>
-                <p>Usted tiene derecho a <strong>Acceder, Rectificar, Cancelar u Oponerse</strong> al tratamiento de sus datos personales (Derechos ARCO), así como a revocar el consentimiento otorgado para su tratamiento, cuando legalmente proceda.</p>
-                <p style="margin: 1rem 0 0.5rem;">Para ejercer estos derechos deberá enviar una solicitud al correo electrónico:</p>
+                <p>Usted tiene derecho a <strong>Acceder, Rectificar, Cancelar u Oponerse</strong> al tratamiento de sus
+                    datos personales (Derechos ARCO), así como a revocar el consentimiento otorgado para su tratamiento,
+                    cuando legalmente proceda.</p>
+                <p style="margin: 1rem 0 0.5rem;">Para ejercer estos derechos deberá enviar una solicitud al correo
+                    electrónico:</p>
                 <p class="email">✉ edificioorbita@prodigy.net.mx</p>
-                <p style="font-size: 0.95rem; margin-top: 0.5rem;">indicando su nombre completo, el derecho que desea ejercer y anexando copia de una identificación oficial.</p>
+                <p style="font-size: 0.95rem; margin-top: 0.5rem;">indicando su nombre completo, el derecho que desea
+                    ejercer y anexando copia de una identificación oficial.</p>
             </div>
 
             <!-- Aviso Integral -->
             <div class="section">
                 <div class="section-title"><span>5</span> Aviso de Privacidad Integral</div>
-                <p>El Aviso de Privacidad Integral de Edificio Órbita se encuentra disponible para su consulta en recepción o puede solicitarse al mismo correo electrónico: <strong>edificioorbita@prodigy.net.mx</strong></p>
+                <p>El Aviso de Privacidad Integral de Edificio Órbita se encuentra disponible para su consulta en
+                    recepción o puede solicitarse al mismo correo electrónico:
+                    <strong>edificioorbita@prodigy.net.mx</strong>
+                </p>
             </div>
 
             <!-- Aceptación -->
             <div class="acceptance" style="margin-top: 2rem;">
-                <p style="font-weight: 500;">✓ Al proporcionar sus datos personales y seleccionar la opción de aceptación en este dispositivo digital, usted reconoce haber leído y entendido el presente Aviso de Privacidad.</p>
+                <p style="font-weight: 500;">✓ Al proporcionar sus datos personales y seleccionar la opción de
+                    aceptación en este dispositivo digital, usted reconoce haber leído y entendido el presente Aviso de
+                    Privacidad.</p>
+            </div>
+
+            <div style="text-align: center; margin-top: 1.5rem;">
+                <button onclick="aceptar()"
+                    style="background:#0b2b4f; color:white; padding:0.8rem 2rem; border:none; border-radius:30px; font-size:1rem; cursor:pointer;">
+                    Acepto
+                </button>
             </div>
         </div>
+
+
 
         <div class="footer">
             <span>Edificio Orbita · Orbita CoWorks</span>
@@ -253,4 +316,16 @@
         </div>
     </div>
 </body>
+
+<script>
+    function aceptar() {
+
+        // Guardar aceptación
+        localStorage.setItem("aceptoPrivacidad", "true");
+
+        // Regresar a visitantes
+        window.location.href = "/visitantes";
+    }
+</script>
+
 </html>
