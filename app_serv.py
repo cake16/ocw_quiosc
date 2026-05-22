@@ -97,6 +97,8 @@ def agregar_registro():
         ruta_foto = request.form['ruta_foto']
         hora_entrada = request.form['horaEntrada']
         numGafe = request.form['numGafe']
+        empresaReserva = request.form['empresaReserva']
+        motivoReserva = request.form['motivoReserva']
         estatus = 'Activo'
 
         foto_base64 = request.form.get('fotoTomada', '')
@@ -124,7 +126,7 @@ def agregar_registro():
        
         
         # Crear un DataFrame con el nuevo registro
-        nuevo_registro = pd.DataFrame([[fecha,nombre, apellidoPaterno, visitado, oficina,numGafe,hora_entrada,ruta_foto,estatus]], columns=['Fecha','Nombre del visitante','Apellidos', 'Nombre de quien visita o Empresa','Número de oficina','Numero Gafete','Hora de entrada','ruta_foto','Estatus'])
+        nuevo_registro = pd.DataFrame([[fecha,nombre, apellidoPaterno, visitado, oficina,numGafe,hora_entrada,ruta_foto,empresaReserva,motivoReserva,estatus]], columns=['Fecha','Nombre del visitante','Apellidos', 'Nombre de quien visita o Empresa','Número de oficina','Numero Gafete','Hora de entrada','ruta_foto','Nombre de la Empresa','Giro de la Empresa','Estatus'])
 
         # Verificar si el archivo CSV existe
         archivo = 'registrosregistros_visitantes.csv'
