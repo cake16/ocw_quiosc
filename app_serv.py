@@ -31,9 +31,17 @@ os.makedirs(FOTOS_DIR, exist_ok=True)
 def index():
     return render_template('index.html')
 
+@app.route('/Opt')
+def Opt():
+    return render_template('opt.html')
+
 @app.route('/visitantes')
 def visitantes():
     return render_template('visitantes.html')
+
+@app.route('/ReservEsp')
+def ReservEsp():
+    return render_template('ReservEsp.html')
 
 @app.route('/foto')
 def foto():
@@ -141,6 +149,61 @@ def agregar_registro():
 
 EXCEL_FILE = "registrosregistros_visitantes.csv"
 
+# Ruta para procesar reserva de espacios
+@app.route('/reservar_espacio', methods=['POST'])
+def reservar_espacio():
+    if request.method == 'POST':
+        fecha = request.form['fecha']
+        nombre = request.form['nombre']
+        apellidoPaterno = request.form['apePaterno']
+        visitado = request.form['visitado']
+        oficina = request.form['oficina']
+        ruta_foto = request.form['ruta_foto']
+        hora_entrada = request.form['horaEntrada']
+        numGafe = request.form['numGafe']
+        empresaReserva = request.form['empresaReserva']
+        motivoReserva = request.form['motivoReserva']
+        estatus = 'Activo'
+
+        foto_base64 = request.form.get('fotoTomada', '')
+
+        if foto_base64:
+            try:
+                # Limpiar y decodificar la imagen base64
+                foto_base64 = foto_base64.split(",")[1]
+                image_bytes = base64.b64decode(foto_base64)
+
+                # Crear nombre y ruta del archivo
+                fecha_hora = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+                filename = f"{fecha_hora}_{nombre.replace(' ', '_')}.jpg"
+                filepath = os.path.join(FOTOS_DIR, filename)
+
+                # Guardar la imagen en el servidor
+                with open(filepath, "wb") as f:
+                    f.write(image_bytes)
+
+                # Guardar la ruta relativa para Excel/CSV
+                ruta_foto = f"fotos_guardadas/{filename}"
+            except Exception as e:
+                print("Error al guardar foto:", e)
+                ruta_foto = "Error al guardar foto"
+       
+        
+        # Crear un DataFrame con el nuevo registro
+        nuevo_registro = pd.DataFrame([[fecha,nombre, apellidoPaterno, visitado, oficina,numGafe,hora_entrada,ruta_foto,empresaReserva,motivoReserva,estatus]], columns=['Fecha','Nombre del visitante','Apellidos', 'Nombre de quien visita','Número de oficina','Numero Gafete','Hora de entrada','ruta_foto','Nombre de la Empresa','Giro de la Empresa','Estatus'])
+
+        # Verificar si el archivo CSV existe
+        archivo = 'registros_reservasEspacios.csv'
+        if os.path.exists(archivo):
+            # Si el archivo existe, agregar al final
+            nuevo_registro.to_csv(archivo, mode='a', header=False, index=False, encoding='utf-8-sig')
+        else:
+            # Si no existe, crear el archivo con el encabezado
+            nuevo_registro.to_csv(archivo, mode='w', header=True, index=False, encoding='utf-8-sig')
+        
+        return redirect(url_for('index'))
+
+EXCEL_FILE = "registros_reservasEspacios.csv"
 
 @app.route('/paqueteria_form', methods=['POST'])
 def paqueteria_form():

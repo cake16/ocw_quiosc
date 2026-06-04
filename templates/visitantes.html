@@ -121,19 +121,7 @@
                                                 required>
                                         </div>
 
-                                        <!-- CHECK RESERVA -->
-                                        <div class="col-md-4">
-
-                                            <div class="form-check mb-3">
-                                                <input class="form-check-input" type="checkbox" id="reservoEspacio">
-
-                                                <label class="form-check-label" for="reservoEspacio"
-                                                    style="font-family: 'Raleway', sans-serif;" id="label-reserva">
-                                                    Reservé un espacio
-                                                </label>
-                                            </div>
-
-                                        </div>
+                                        
 
                                     </div>
 
@@ -282,38 +270,6 @@
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 
-
-    <script>
-        const checkReserva = document.getElementById('reservoEspacio');
-        const camposReserva = document.getElementById('camposReserva');
-
-        const empresaReserva = document.getElementById('empresaReserva');
-        const motivoReserva = document.getElementById('motivoReserva');
-
-        checkReserva.addEventListener('change', () => {
-
-            if (checkReserva.checked) {
-
-                camposReserva.style.display = 'block';
-
-                // HACER OBLIGATORIOS
-                empresaReserva.required = true;
-                motivoReserva.required = true;
-
-            } else {
-
-                camposReserva.style.display = 'none';
-
-                // QUITAR OBLIGATORIOS
-                empresaReserva.required = false;
-                motivoReserva.required = false;
-
-                // LIMPIAR CAMPOS
-                empresaReserva.value = '';
-                motivoReserva.value = '';
-            }
-        });
-    </script>
 
     <script>
 
