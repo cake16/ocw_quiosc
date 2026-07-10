@@ -53,7 +53,7 @@
 
                     <div class="card-header bg-option text-white text-center ">
                         <h4 id="titulo-formulario" style=" font-family: 'Raleway', sans-serif; " class="mt-2">Registro
-                            de Visitantes
+                            Espacio Visitantes
                         </h4>
                     </div>
 
@@ -86,23 +86,13 @@
 
                                     </div>
 
-
-
-                                    <div class="mb-3" data-aos="fade-left">
-                                        <label for="visitado" class="form-label"
-                                            style=" font-family: 'Raleway', sans-serif; " id="label-visitado">Persona a
-                                            quién visita</label>
-                                        <input type="text" class="form-control" id="visitado" name="visitado" required>
-
-                                    </div>
-
                                     <div class="row align-items-end">
 
                                         <!-- OFICINA -->
                                         <div class="col-md-4" data-aos="fade-right">
                                             <label for="oficina" class="form-label"
                                                 style="font-family: 'Raleway', sans-serif;" id="label-oficina">
-                                                Número de oficina
+                                                Area
                                             </label>
 
                                             <input type="text" class="form-control" id="oficina" name="oficina"
@@ -241,7 +231,7 @@
 
         <div class="right">
 
-            <a href="{{ url_for('registrar_salida') }}" class="btn btn-danger btn-lg shadow"
+            <a href="{{ url_for('registrar_salida_Espacios') }}" class="btn btn-danger btn-lg shadow"
                 style=" font-family: 'Raleway', sans-serif; " id="btn-salida-text">
                 <i class="bi bi-box-arrow-right"></i> Registrar Salida
             </a>
@@ -432,7 +422,6 @@
                 'label-correo': 'Correo',
                 'label-no-aplica': 'No Aplica',
                 'label-compania': 'Empresa (Tuya o a quién representas)',
-                'label-visitado': 'Persona a quién visita',
                 'label-oficina': 'Número de oficina',
                 'label-horaEntrada': 'Hora de entrada',
                 'label-foto': 'Foto del visitante',
@@ -457,7 +446,6 @@
                 'label-correo': 'Email',
                 'label-no-aplica': 'Not Applicable',
                 'label-compania': 'Company',
-                'label-visitado': 'Name of Person You Are Visiting',
                 'label-oficina': 'Office Number',
                 'label-horaEntrada': 'Entry Time',
                 'label-foto': "Visitor's Photo",
@@ -558,7 +546,6 @@
             const formData = {
                 nombre: document.getElementById('nombre')?.value || '',
                 apePaterno: document.getElementById('apePaterno')?.value || '',
-                visitado: document.getElementById('visitado')?.value || '',
                 oficina: document.getElementById('oficina')?.value || '',
                 numGafe: document.getElementById('numGafe')?.value || '',
                 fotoTomada: document.getElementById('fotoTomada')?.value || '',
@@ -582,8 +569,6 @@
                         document.getElementById('nombre').value = formData.nombre || '';
                     if (document.getElementById('apePaterno'))
                         document.getElementById('apePaterno').value = formData.apePaterno || '';
-                    if (document.getElementById('visitado'))
-                        document.getElementById('visitado').value = formData.visitado || '';
                     if (document.getElementById('oficina'))
                         document.getElementById('oficina').value = formData.oficina || '';
                     if (document.getElementById('numGafe'))

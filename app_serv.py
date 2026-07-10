@@ -59,6 +59,11 @@ def paqueteria():
 def registrar_salida():
     return render_template('registrar_salida.html')
 
+@app.route('/registrar_salida_Espacios')
+def registrar_salida_Espacios():
+    return render_template('salida_espacios.html')
+
+
 @app.route('/proveedores')
 def proveedores():
     return render_template('proveedores.html')
@@ -156,7 +161,6 @@ def reservar_espacio():
         fecha = request.form['fecha']
         nombre = request.form['nombre']
         apellidoPaterno = request.form['apePaterno']
-        visitado = request.form['visitado']
         oficina = request.form['oficina']
         ruta_foto = request.form['ruta_foto']
         hora_entrada = request.form['horaEntrada']
@@ -190,7 +194,7 @@ def reservar_espacio():
        
         
         # Crear un DataFrame con el nuevo registro
-        nuevo_registro = pd.DataFrame([[fecha,nombre, apellidoPaterno, visitado, oficina,numGafe,hora_entrada,ruta_foto,empresaReserva,motivoReserva,estatus]], columns=['Fecha','Nombre del visitante','Apellidos', 'Nombre de quien visita','Número de oficina','Numero Gafete','Hora de entrada','ruta_foto','Nombre de la Empresa','Giro de la Empresa','Estatus'])
+        nuevo_registro = pd.DataFrame([[fecha,nombre, apellidoPaterno, oficina,numGafe,hora_entrada,ruta_foto,empresaReserva,motivoReserva,estatus]], columns=['Fecha','Nombre del visitante','Apellidos','Area','Numero Gafete','Hora de entrada','ruta_foto','Nombre de la Empresa','Giro de la Empresa','Estatus'])
 
         # Verificar si el archivo CSV existe
         archivo = 'registros_reservasEspacios.csv'
@@ -203,7 +207,7 @@ def reservar_espacio():
         
         return redirect(url_for('index'))
 
-EXCEL_FILE = "registros_reservasEspacios.csv"
+ESPACIOS_FILE = "registros_reservasEspacios.csv"
 
 @app.route('/paqueteria_form', methods=['POST'])
 def paqueteria_form():
@@ -261,6 +265,48 @@ def registrar_salida1():
 
         # Guardar CSV
         df.to_csv(EXCEL_FILE, index=False, encoding='utf-8')
+
+        return jsonify({
+            "ok": True,
+            "msg": f"✅ Salida registrada correctamente (Hora: {hora_salida})."
+        })
+
+    except Exception as e:
+        return jsonify({"ok": False, "msg": f"Error procesando salida: {e}"})
+    
+
+@app.post("/registrar_salida_espacios")
+def registrar_salida_espacios():
+    data = request.get_json()
+    gafete = str(data.get("gafete"))
+
+    try:
+        df = pd.read_csv(ESPACIOS_FILE, encoding='utf-8')
+
+        # Normalizar tipo de datos
+        df["Numero Gafete"] = df["Numero Gafete"].astype(str)
+
+        # FILTRAR SOLO LOS QUE ESTÁN ACTIVOS
+        registro_activo = df[(df["Numero Gafete"] == gafete) & (df["Estatus"] == "Activo")]
+
+        # Si no está activo → no tiene sentido registrar salida
+        if registro_activo.empty:
+            return jsonify({"ok": False, "msg": "⚠️ Este gafete no tiene un registro activo actualmente."})
+
+        # Registrar hora de salida
+        hora_salida = datetime.now().strftime("%H:%M:%S")
+
+        # Crear columna si no existe
+        if "Hora de salida" not in df.columns:
+            df["Hora de salida"] = ""
+
+        # Actualizar solo el registro activo
+        idx = registro_activo.index[0]
+        df.loc[idx, "Estatus"] = "Inactivo"
+        df.loc[idx, "Hora de salida"] = hora_salida
+
+        # Guardar CSV
+        df.to_csv(ESPACIOS_FILE, index=False, encoding='utf-8')
 
         return jsonify({
             "ok": True,
